@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ------
+metadata:
+  name: postgresdb
+spec:
+  type: ------
+  ports:
+  - port: ------
+  selector:
+    app: postgresdb
