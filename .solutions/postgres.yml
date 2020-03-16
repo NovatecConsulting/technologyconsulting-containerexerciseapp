@@ -1,17 +1,22 @@
-apiVersion: extensions/v1beta1
-kind: Deployment
+apiVersion: apps/v1
+kind: StatefulSet
 metadata:
-  name: postgresdb 
-  namespace: default
+  name: postgresdb
 spec:
+  serviceName: postgresdb
+  replicas: 2
+  selector:
+    matchLabels:
+      app: postgresdb
   template:
     metadata:
       labels:
         app: postgresdb
     spec:
       volumes:
-        - name: data
-          emptyDir: {}
+        - name: data-db
+          persistentVolumeClaim:
+           claimName: postgres-data-db 
       containers:
        - image: postgres
          name: postgresdb
@@ -35,5 +40,5 @@ spec:
          - containerPort: 5432
            name: postgresdb
          volumeMounts:
-           - name: data
-             mountPath: /var/lib/postgresql/data
+           - name: data-db
+             mountPath: /data/db
