@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: postgres-data-db 
+  namespace: default
+  labels:
+    app: postgresdb
+spec:
+  storageClassName: default 
+  capacity:
+    storage: 64Mi
+  accessModes:
+    - ReadWriteOnce
+  local:
+    path: /tmp/
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: kubernetes.io/hostname
+          operator: In
+          values:
+          - aks-agentpool-25196276-vmss000000

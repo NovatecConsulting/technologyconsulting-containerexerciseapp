@@ -13,10 +13,6 @@ spec:
       labels:
         app: postgresdb
     spec:
-      volumes:
-        - name: data-db
-          persistentVolumeClaim:
-            claimName: postgres-data-db 
       containers:
        - image: postgres
          name: postgresdb
