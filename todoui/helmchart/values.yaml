@@ -1,0 +1,15 @@
+app: 
+  image:
+    repository: novatec/technologyconsulting-containerexcerciseapp-todoui
+    tag: "v0.1"
+  appconfig:
+    backend: 
+      host: todobackend-service
+      port: 80
+    httpport: 8080
+  scale:
+    minReplica: 1
+    maxReplicas: 3
+  azureconfig:
+    resourcegroup: 
+    loadbalancerip: 

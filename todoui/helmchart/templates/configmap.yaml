@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Chart.Name }}-config
+data:
+  SERVER_PORT: {{ .Values.app.appconfig.httpport | quote }}
+  BACKEND_HOST: {{ .Values.app.appconfig.backend.host | quote }}
+  BACKEND_PORT: {{ .Values.app.appconfig.backend.port | quote }}
+

@@ -1,0 +1,1 @@
+helm delete todoui --purge

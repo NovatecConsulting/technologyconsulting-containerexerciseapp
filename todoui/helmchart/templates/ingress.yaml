@@ -1,0 +1,13 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: {{ .Chart.Name }}-ingress
+
+spec:
+  rules:
+    - http:
+        paths:
+        - path: /manufacture
+          backend:
+            serviceName: {{ .Chart.Name }}-service
+            servicePort: 80

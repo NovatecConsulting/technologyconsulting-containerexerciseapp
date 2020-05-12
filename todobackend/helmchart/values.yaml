@@ -1,0 +1,17 @@
+app: 
+  image:
+    repository: novatec/technologyconsulting-containerexcerciseapp-todobackend
+    tag: "v0.1"
+  appconfig:
+    profile: kubernetes
+    httpport: 8080
+  dbconfig:
+    jdbcurl: 
+    user: 
+    password: 
+  scale:
+    minReplica: 1
+    maxReplicas: 3
+  azureconfig:
+    resourcegroup: 
+    loadbalancerip: 
