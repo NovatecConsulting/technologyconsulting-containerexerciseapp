@@ -17,7 +17,7 @@ spec:
       - name: todobackend
         env:
         - name: SPRING_PROFILES_ACTIVE
-          value: dev
+          value: prod
         - name: POSTGRES_HOST
           value: postgresdb
         image: novatec/technologyconsulting-containerexcerciseapp-todobackend:v0.1
