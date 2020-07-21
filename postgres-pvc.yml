@@ -4,8 +4,8 @@ metadata:
   name: postgres-data-db 
 spec:
   accessModes:
-  - ReadWriteOnce
-  storageClassName: default 
+    - ReadWriteOnce
+  storageClassName: default
   resources:
     requests:
-      storage: 16Mi
+      storage: 1Gi
