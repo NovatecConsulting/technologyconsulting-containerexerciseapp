@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: postgresdb 
+  name: postgresdb
 spec:
   replicas: 1
   selector:
@@ -11,10 +11,8 @@ spec:
     metadata:
       labels:
         app: postgresdb
+        tier: database
     spec:
-      volumes:
-        - name: data
-          emptyDir: {}
       containers:
        - image: postgres
          name: postgresdb
@@ -33,10 +31,4 @@ spec:
            valueFrom:
              configMapKeyRef:
                name: postgres-config
-               key: postgres.db.name 
-         ports:
-         - containerPort: 5432
-           name: postgresdb
-         volumeMounts:
-           - name: data
-             mountPath: /var/lib/postgresql/data
+               key: postgres.db.name
