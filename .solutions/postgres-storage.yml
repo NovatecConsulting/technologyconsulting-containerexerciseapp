@@ -39,3 +39,4 @@ spec:
          volumeMounts:
            - name: data-db
              mountPath: /var/lib/postgresql/data
+             subPath: postgresdb
