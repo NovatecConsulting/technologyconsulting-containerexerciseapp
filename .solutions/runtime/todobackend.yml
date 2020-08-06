@@ -23,6 +23,14 @@ spec:
           timeoutSeconds: 1
           periodSeconds: 1
           failureThreshold: 1
+        livenessProbe:
+          httpGet:
+            path: /todos/
+            port: 8080
+          initialDelaySeconds: 30
+          timeoutSeconds: 1
+          periodSeconds: 1
+          failureThreshold: 3  
         env:
         - name: SPRING_PROFILES_ACTIVE
           value: prod
