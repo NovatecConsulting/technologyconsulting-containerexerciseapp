@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todobackend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: todobackend
+  template:
+    metadata:
+      name: todobackend
+      labels:
+        app: todobackend
+    spec:
+      containers:
+      - name: todobackend
+        readinessProbe:
+          httpGet:
+            path: /hello
+            port: 8080
+          initialDelaySeconds: 1
+          timeoutSeconds: 1
+          periodSeconds: 1
+          failureThreshold: 1
+        env:
+        - name: SPRING_PROFILES_ACTIVE
+          value: prod
+        - name: POSTGRES_HOST
+          value: postgresdb
+        image: novatec/technologyconsulting-containerexcerciseapp-todobackend:v0.1
+        imagePullPolicy: Always
+      restartPolicy: Always
