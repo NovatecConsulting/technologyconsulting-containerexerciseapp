@@ -14,21 +14,21 @@ spec:
         tier: database
     spec:
       containers:
-       - image: ------
-         name: postgresdb
-         env:
-         - name: POSTGRES_USER
-           valueFrom:
-             secretKeyRef:
-               name: db-security
-               key: db.user.name
-         - name: POSTGRES_PASSWORD
-           valueFrom:
-             secretKeyRef:
-               name: db-security
-               key: db.user.password
-         - name: POSTGRES_DB
-           valueFrom:
-             configMapKeyRef:
-               name: postgres-config
-               key: postgres.db.name
+        - image: ------
+          name: postgresdb
+          env:
+          - name: POSTGRES_USER
+            valueFrom:
+              secretKeyRef:
+                name: db-security
+                key: db.user.name
+          - name: POSTGRES_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: db-security
+                key: db.user.password
+          - name: POSTGRES_DB
+            valueFrom:
+              configMapKeyRef:
+                name: postgres-config
+                key: postgres.db.name

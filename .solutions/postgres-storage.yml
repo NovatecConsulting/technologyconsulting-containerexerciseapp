@@ -18,46 +18,46 @@ spec:
           persistentVolumeClaim:
             claimName: postgres-data-db
       containers:
-       - image: postgres
-         name: postgresdb
-         env:
-         - name: POSTGRES_USER
-           valueFrom:
-             secretKeyRef:
-               name: db-security
-               key: db.user.name
-         - name: POSTGRES_PASSWORD
-           valueFrom:
-             secretKeyRef:
-               name: db-security
-               key: db.user.password
-         - name: POSTGRES_DB
-           valueFrom:
-             configMapKeyRef:
-               name: postgres-config
-               key: postgres.db.name
-         volumeMounts:
-           - name: data-db
-             mountPath: /var/lib/postgresql/data
-             subPath: postgresdb
-       - image: postgres
-         name: pg-dump
-         command:
-         - bash
-         - -c
-         - while sleep 1h; do pg_dump --host=127.0.0.1 --username=$POSTGRES_USER --dbname=$POSTGRES_DB --file=/pg_dump/$(date +%s).sql; done
-         env:
-         - name: POSTGRES_USER
-           valueFrom:
-             secretKeyRef:
-               name: db-security
-               key: db.user.name
-         - name: POSTGRES_DB
-           valueFrom:
-             configMapKeyRef:
-               name: postgres-config
-               key: postgres.db.name
-         volumeMounts:
-           - name: data-db
-             mountPath: /pg_dump
-             subPath: pg-dump
+        - image: postgres
+          name: postgresdb
+          env:
+          - name: POSTGRES_USER
+            valueFrom:
+              secretKeyRef:
+                name: db-security
+                key: db.user.name
+          - name: POSTGRES_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: db-security
+                key: db.user.password
+          - name: POSTGRES_DB
+            valueFrom:
+              configMapKeyRef:
+                name: postgres-config
+                key: postgres.db.name
+          volumeMounts:
+            - name: data-db
+              mountPath: /var/lib/postgresql/data
+              subPath: postgresdb
+        - image: postgres
+          name: pg-dump
+          command:
+          - bash
+          - -c
+          - while sleep 1h; do pg_dump --host=127.0.0.1 --username=$POSTGRES_USER --dbname=$POSTGRES_DB --file=/pg_dump/$(date +%s).sql; done
+          env:
+          - name: POSTGRES_USER
+            valueFrom:
+              secretKeyRef:
+                name: db-security
+                key: db.user.name
+          - name: POSTGRES_DB
+            valueFrom:
+              configMapKeyRef:
+                name: postgres-config
+                key: postgres.db.name
+          volumeMounts:
+            - name: data-db
+              mountPath: /pg_dump
+              subPath: pg-dump
