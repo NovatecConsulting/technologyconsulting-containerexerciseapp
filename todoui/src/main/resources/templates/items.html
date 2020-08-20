@@ -51,6 +51,12 @@
                 <th width="600px">Item</th>
                 <th>Action</th>
             </tr>
+<!--
+            <tr>
+                <td>You have <span th:text="${#lists.size(items)}" /> ToDo(s) :-)</td>
+                <td>None</td>
+            </tr>
+-->
             <tr th:each="item : ${items}">
                 <td th:text="${item}"/>
                 <td>
