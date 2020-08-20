@@ -41,10 +41,10 @@ public class TodouiApplication {
 	public String stress(){
 
 		System.out.println(java.time.LocalDateTime.now() + " : Starting stress");
-                double result = 0;
-                for (int i = 0; i < 100000000; i++) {
-                        result += System.currentTimeMillis();
-                }
+		double result = 0;
+		for (int i = 0; i < 100000000; i++) {
+			result += System.currentTimeMillis();
+		}
 		System.out.println(java.time.LocalDateTime.now() + " : Ending stress, result: " + result);
 		return "redirect:/";
 
