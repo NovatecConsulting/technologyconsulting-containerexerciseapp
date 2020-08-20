@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.client.RestTemplate;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
+
 @SpringBootApplication
 @Controller
 public class TodouiApplication {
@@ -46,6 +49,27 @@ public class TodouiApplication {
 			result += System.currentTimeMillis();
 		}
 		System.out.println(java.time.LocalDateTime.now() + " : Ending stress, result: " + result);
+		return "redirect:/";
+
+	}
+
+	@GetMapping("/createcookie")
+	public String createCookie(HttpServletResponse response) {
+
+		Cookie cookie = new Cookie("featureflag", "on");
+		cookie.setPath("/");
+		response.addCookie(cookie);
+		return "redirect:/";
+
+	}
+
+	@GetMapping("/deletecookie")
+	public String deleteCookie(HttpServletResponse response) {
+
+		Cookie cookie = new Cookie("featureflag", null);
+		cookie.setMaxAge(0);
+		cookie.setPath("/");
+		response.addCookie(cookie);
 		return "redirect:/";
 
 	}
