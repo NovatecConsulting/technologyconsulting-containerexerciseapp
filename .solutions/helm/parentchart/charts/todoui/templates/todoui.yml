@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: helm-{{ .Chart.Name }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: helm-{{ .Chart.Name }}  
+  template:
+    metadata:
+      name: helm-{{ .Chart.Name }}
+      labels:
+        app: helm-{{ .Chart.Name }}
+    spec:
+      containers:
+      - name: helm-{{ .Chart.Name }}
+        image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+        imagePullPolicy: Always
+      restartPolicy: Always

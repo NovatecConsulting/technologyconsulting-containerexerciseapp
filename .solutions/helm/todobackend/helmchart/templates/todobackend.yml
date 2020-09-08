@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: helm-{{ .Chart.Name }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: helm-{{ .Chart.Name }}
+  template:
+    metadata:
+      name: helm-{{ .Chart.Name }}
+      labels:
+        app: helm-{{ .Chart.Name }}
+    spec:
+      containers:
+      - image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+        name: helm-{{ .Chart.Name }}
+        env:
+        - name: SPRING_PROFILES_ACTIVE
+          value: {{ .Values.springProfiles }}
+        - name: POSTGRES_HOST
+          value: {{ .Values.postgresHost }}
+        imagePullPolicy: Always
+      restartPolicy: Always
