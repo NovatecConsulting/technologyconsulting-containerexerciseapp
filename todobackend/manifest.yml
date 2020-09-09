@@ -1,0 +1,6 @@
+applications:
+- name: todobackend
+  memory: 1G
+  path: target/todobackend-0.0.1-SNAPSHOT.jar
+  services:
+   - postgresdb
