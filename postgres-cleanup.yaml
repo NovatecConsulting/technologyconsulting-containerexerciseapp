@@ -1,0 +1,35 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: postgresdb-cleanup
+spec:
+  successfulJobsHistoryLimit: 5
+  schedule: "*/2 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - image: postgres
+            name: postgresdb-cleanup
+            command:
+            - bash
+            - -c
+            - cd && echo "*:*:*:*:$PGPASS" > .pgpass && chmod 600 .pgpass && psql --host=postgresdb --command="delete from todo"
+            env:
+            - name: PGUSER
+              valueFrom:
+                secretKeyRef:
+                  name: db-security
+                  key: db.user.name
+            - name: PGPASS
+              valueFrom:
+                secretKeyRef:
+                  name: db-security
+                  key: db.user.password
+            - name: PGDATABASE
+              valueFrom:
+                configMapKeyRef:
+                  name: postgres-config
+                  key: postgres.db.name
+          restartPolicy: OnFailure
