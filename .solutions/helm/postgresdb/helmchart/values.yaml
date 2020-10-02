@@ -1,5 +1,4 @@
 port: 5432
-replicas: 1
 image:
     repository: postgres
     
