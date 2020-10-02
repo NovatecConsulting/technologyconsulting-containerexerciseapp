@@ -1,24 +1,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: todoui-0-1
+  name: todoui-0-3
   labels:
     app: todoui
-    version: "0.1"
+    version: "0.3"
 spec:
   replicas: 1
   selector:
     matchLabels:
       app: todoui
-      version: "0.1"
+      version: "0.3"
   template:
     metadata:
       name: todoui
       labels:
         app: todoui
-        version: "0.1"
+        version: "0.3"
     spec:
       containers:
       - name: todoui
-        image: novatec/technologyconsulting-containerexcerciseapp-todoui:v0.1
+        image: novatec/technologyconsulting-containerexcerciseapp-todoui:v0.3
       restartPolicy: Always
