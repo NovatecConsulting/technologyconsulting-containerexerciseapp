@@ -1,0 +1,43 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: postgresdb-import
+spec:
+  activeDeadlineSeconds: 30
+  ttlSecondsAfterFinished: 3600
+  template:
+    spec:
+      containers:
+      - image: postgres
+        name: postgresdb-import
+        command:
+        - bash
+        - -c
+        - cd && echo "*:*:*:*:$PGPASS" > .pgpass && chmod 600 .pgpass && psql --host=postgresdb --command="\copy todo from '/importdata/csv'"
+        env:
+        - name: PGUSER
+          valueFrom:
+            secretKeyRef:
+              name: db-security
+              key: db.user.name
+        - name: PGPASS
+          valueFrom:
+            secretKeyRef:
+              name: db-security
+              key: db.user.password
+        - name: PGDATABASE
+          valueFrom:
+            configMapKeyRef:
+              name: postgres-config
+              key: postgres.db.name
+        volumeMounts:
+        - name: postgresdb-importdata
+          mountPath: /importdata
+      volumes:
+      - name: postgresdb-importdata
+        configMap:
+          name: postgresdb-importdata
+          items:
+          - key: importdata
+            path: csv
+      restartPolicy: Never
