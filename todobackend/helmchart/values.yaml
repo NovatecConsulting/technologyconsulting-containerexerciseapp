@@ -6,4 +6,3 @@ port: 8080
 replicaCount: 1
 
 springProfiles: prod
-postgresHost: postgresdb

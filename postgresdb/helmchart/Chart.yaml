@@ -1,6 +1,5 @@
-apiVersion: v2
-name: mynewpostgresdb
+apiVersion: v1
+appVersion: "1.0"
+name: postgresdb
 description: postgresdb
-type: application
 version: 0.1.0
-appVersion: 1.16.0

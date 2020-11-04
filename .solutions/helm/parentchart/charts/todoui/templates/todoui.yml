@@ -17,4 +17,7 @@ spec:
       - name: helm-{{ .Chart.Name }}
         image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
         imagePullPolicy: Always
+        env:
+        - name: BACKEND_HOST
+          value: {{ .Values.backendHost }}
       restartPolicy: Always
