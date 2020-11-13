@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todobackend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: todobackend
+  template:
+    metadata:
+      name: todobackend
+      labels:
+        app: todobackend
+    spec:
+      containers:
+      - name: todobackend
+        env:
+        - name: SPRING_PROFILES_ACTIVE
+          value: prod
+        - name: POSTGRES_HOST
+          value: postgresdb
+        image: novatec/technologyconsulting-containerexcerciseapp-todobackend:v0.1-ocelot
+        imagePullPolicy: Always
+        env:
+        - name: INSPECTIT_SERVICE_NAME
+          value: 'todobackend'
+        - name: INSPECTIT_METRICS_JMX_ENABLED
+          value: 'true'
+        - name: INSPECTIT_EXPORTERS_TRACING_JAEGER_URL
+          value: 'http://linkerd-jaeger.linkerd:14268/api/traces'
+      restartPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: todobackend
+  name: todobackend
+spec:
+  type: ClusterIP
+  ports:
+  - name: http-todobackend
+    port: 8080
+  - name: http-metrics
+    port: 8888
+  selector:
+    app: todobackend
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: todobackend
+spec:
+  endpoints:
+  - interval: 15s
+    port: http-metrics
+  selector:
+    matchLabels:
+      app: todobackend

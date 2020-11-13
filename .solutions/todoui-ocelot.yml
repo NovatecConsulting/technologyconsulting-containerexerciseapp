@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todoui
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: todoui  
+  template:
+    metadata:
+      name: todoui
+      labels:
+        app: todoui
+    spec:
+      containers:
+      - name: todoui
+        image: novatec/technologyconsulting-containerexcerciseapp-todoui:v0.1-ocelot
+        imagePullPolicy: Always
+        env:
+        - name: INSPECTIT_SERVICE_NAME
+          value: 'todoui'
+        - name: INSPECTIT_METRICS_JMX_ENABLED
+          value: 'true'
+        - name: INSPECTIT_EXPORTERS_TRACING_JAEGER_URL
+          value: 'http://linkerd-jaeger.linkerd:14268/api/traces'
+      restartPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: todoui
+  name: todoui
+spec:
+  type: LoadBalancer
+  ports:
+  - name: http-todoui
+    port: 8090
+  - name: http-metrics
+    port: 8888
+  selector:
+    app: todoui
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: todoui
+spec:
+  endpoints:
+  - interval: 15s
+    port: http-metrics
+  selector:
+    matchLabels:
+      app: todoui
