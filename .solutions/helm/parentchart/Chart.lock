@@ -1,0 +1,12 @@
+dependencies:
+- name: postgresdb
+  repository: file://../postgresdb/helmchart/
+  version: 0.1.0
+- name: todobackend
+  repository: file://../todobackend/helmchart/
+  version: 0.1.0
+- name: todoui
+  repository: file://../todoui/helmchart/
+  version: 0.1.0
+digest: sha256:22f5c42a2f58b0aa543b4a8e86b05e6e6db2feab1d3e83f48d357e589abc54d9
+generated: "2020-08-20T18:26:49.119941981+02:00"
