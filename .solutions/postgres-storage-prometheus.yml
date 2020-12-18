@@ -16,9 +16,9 @@ spec:
         tier: database
     spec:
       volumes:
-        - name: data-db
+        - name: db-data
           persistentVolumeClaim:
-            claimName: postgres-data-db
+            claimName: postgres-db-data
       containers:
         - image: postgres
           name: postgresdb
@@ -39,7 +39,7 @@ spec:
                 name: postgres-config
                 key: postgres.db.name
           volumeMounts:
-            - name: data-db
+            - name: db-data
               mountPath: /var/lib/postgresql/data
               subPath: postgresdb
         - image: postgres
@@ -60,7 +60,7 @@ spec:
                 name: postgres-config
                 key: postgres.db.name
           volumeMounts:
-            - name: data-db
+            - name: db-data
               mountPath: /pg_dump
               subPath: pg-dump
         - image: bitnami/postgres-exporter
