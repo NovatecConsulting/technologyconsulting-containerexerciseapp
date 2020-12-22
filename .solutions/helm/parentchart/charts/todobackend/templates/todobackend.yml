@@ -21,5 +21,4 @@ spec:
           value: {{ .Values.springProfiles }}
         - name: POSTGRES_HOST
           value: {{ .Values.postgresHost }}
-        imagePullPolicy: Always
       restartPolicy: Always

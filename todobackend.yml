@@ -21,5 +21,4 @@ spec:
         - name: POSTGRES_HOST
           value: postgresdb
         image: novatec/technologyconsulting-containerexcerciseapp-todobackend:v0.1
-        imagePullPolicy: Always
       restartPolicy: Always

@@ -16,5 +16,4 @@ spec:
       containers:
       - name: todoui
         image: novatec/technologyconsulting-containerexcerciseapp-todoui:v0.1
-        imagePullPolicy: Always
       restartPolicy: Always
