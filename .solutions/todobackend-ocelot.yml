@@ -12,23 +12,38 @@ spec:
       name: todobackend
       labels:
         app: todobackend
+        tier: backend
     spec:
       containers:
       - name: todobackend
+        readinessProbe:
+          httpGet:
+            path: /hello
+            port: 8080
+          initialDelaySeconds: 1
+          timeoutSeconds: 1
+          periodSeconds: 1
+          failureThreshold: 1
+        livenessProbe:
+          httpGet:
+            path: /todos/
+            port: 8080
+          initialDelaySeconds: 30
+          timeoutSeconds: 1
+          periodSeconds: 10
+          failureThreshold: 3
         env:
         - name: SPRING_PROFILES_ACTIVE
           value: prod
         - name: POSTGRES_HOST
           value: postgresdb
-        image: novatec/technologyconsulting-containerexcerciseapp-todobackend:v0.1-ocelot
-        imagePullPolicy: Always
-        env:
         - name: INSPECTIT_SERVICE_NAME
           value: 'todobackend'
         - name: INSPECTIT_METRICS_JMX_ENABLED
           value: 'true'
         - name: INSPECTIT_EXPORTERS_TRACING_JAEGER_URL
-          value: 'http://linkerd-jaeger.linkerd:14268/api/traces'
+          value: 'http://jaeger.monitoring:14268/api/traces'
+        image: novatec/technologyconsulting-containerexcerciseapp-todobackend:v0.2-ocelot
       restartPolicy: Always
 ---
 apiVersion: v1
