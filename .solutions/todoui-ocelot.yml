@@ -20,12 +20,12 @@ spec:
       - name: todoui
         image: novatec/technologyconsulting-containerexcerciseapp-todoui:v0.3-ocelot
         env:
-        - name: INSPECTIT_SERVICE_NAME
-          value: 'todoui'
         - name: INSPECTIT_METRICS_JMX_ENABLED
           value: 'true'
         - name: INSPECTIT_EXPORTERS_TRACING_JAEGER_URL
           value: 'http://jaeger.monitoring:14268/api/traces'
+        - name: INSPECTIT_SERVICE_NAME
+          value: 'todoui'
         resources:
           limits:
             cpu: 500m
