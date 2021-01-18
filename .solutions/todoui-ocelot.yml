@@ -1,0 +1,87 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todoui-0-3
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: todoui
+      version: "0.3"
+  template:
+    metadata:
+      name: todoui
+      labels:
+        app: todoui
+        tier: frontend
+        version: "0.3"
+    spec:
+      containers:
+      - name: todoui
+        image: novatec/technologyconsulting-containerexcerciseapp-todoui:v0.3-ocelot
+        env:
+        - name: INSPECTIT_METRICS_JMX_ENABLED
+          value: 'true'
+        - name: INSPECTIT_EXPORTERS_TRACING_JAEGER_URL
+          value: 'http://jaeger.monitoring:14268/api/traces'
+        - name: INSPECTIT_SERVICE_NAME
+          value: 'todoui'
+        resources:
+          limits:
+            cpu: 500m
+            memory: 2Gi
+          requests:
+            cpu: 200m
+            memory: 1Gi
+      restartPolicy: Always
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                  - key: "app"
+                    operator: In
+                    values:
+                    - todoui
+              topologyKey: "kubernetes.io/hostname"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: todoui
+  name: todoui
+spec:
+  type: LoadBalancer
+  ports:
+  - name: http-todoui
+    port: 8090
+  - name: http-metrics
+    port: 8888
+  selector:
+    app: todoui
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: todoui
+spec:
+  endpoints:
+  - interval: 15s
+    port: http-metrics
+  selector:
+    matchLabels:
+      app: todoui
+---
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: todoui-0-3
+spec:
+  maxReplicas: 4
+  minReplicas: 1
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: todoui-0-3
+  targetCPUUtilizationPercentage: 50

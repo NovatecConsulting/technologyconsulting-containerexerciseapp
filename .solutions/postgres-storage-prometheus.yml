@@ -1,0 +1,108 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgresdb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgresdb
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: postgresdb
+        tier: database
+    spec:
+      volumes:
+        - name: db-data
+          persistentVolumeClaim:
+            claimName: postgres-db-data
+      containers:
+        - image: postgres
+          name: postgresdb
+          env:
+          - name: POSTGRES_USER
+            valueFrom:
+              secretKeyRef:
+                name: db-security
+                key: db.user.name
+          - name: POSTGRES_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: db-security
+                key: db.user.password
+          - name: POSTGRES_DB
+            valueFrom:
+              configMapKeyRef:
+                name: postgres-config
+                key: postgres.db.name
+          volumeMounts:
+            - name: db-data
+              mountPath: /var/lib/postgresql/data
+              subPath: postgresdb
+        - image: postgres
+          name: pg-dump
+          command:
+          - bash
+          - -c
+          - while sleep 1h; do pg_dump --host=127.0.0.1 --username=$POSTGRES_USER --dbname=$POSTGRES_DB --file=/pg_dump/$(date +%s).sql; done
+          env:
+          - name: POSTGRES_USER
+            valueFrom:
+              secretKeyRef:
+                name: db-security
+                key: db.user.name
+          - name: POSTGRES_DB
+            valueFrom:
+              configMapKeyRef:
+                name: postgres-config
+                key: postgres.db.name
+          volumeMounts:
+            - name: db-data
+              mountPath: /pg_dump
+              subPath: pg-dump
+        - image: bitnami/postgres-exporter
+          name: postgres-exporter
+          env:
+          - name: DATA_SOURCE_URI
+            value: 'localhost/postgres?sslmode=disable'
+          - name: DATA_SOURCE_USER
+            valueFrom:
+              secretKeyRef:
+                name: db-security
+                key: db.user.name
+          - name: DATA_SOURCE_PASS
+            valueFrom:
+              configMapKeyRef:
+                name: postgres-config
+                key: postgres.db.name
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: postgresdb
+  name: postgresdb
+spec:
+  type: ClusterIP
+  ports:
+  - name: tcp-postgres
+    port: 5432
+  - name: http-metrics
+    port: 9187
+  selector:
+    app: postgresdb
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: postgresdb
+spec:
+  endpoints:
+  - interval: 15s
+    port: http-metrics
+  selector:
+    matchLabels:
+      app: postgresdb

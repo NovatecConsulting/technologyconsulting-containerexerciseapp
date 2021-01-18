@@ -16,6 +16,9 @@ import org.springframework.web.client.RestTemplate;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 
+import java.util.List;
+import java.util.ArrayList;
+
 @SpringBootApplication
 @Controller
 public class TodouiApplication {
@@ -49,6 +52,19 @@ public class TodouiApplication {
 			result += System.currentTimeMillis();
 		}
 		System.out.println(java.time.LocalDateTime.now() + " : Ending stress, result: " + result);
+		return "redirect:/";
+
+	}
+
+	public static List<Double> list = new ArrayList<>(); // can never be GC'ed
+	@GetMapping("/leak")
+	public String leak(){
+
+		System.out.println(java.time.LocalDateTime.now() + " : Start leaking");
+		for (int i = 0; i < 10000000; i++) {
+			list.add(Math.random());
+		}
+		System.out.println(java.time.LocalDateTime.now() + " : End leaking");
 		return "redirect:/";
 
 	}

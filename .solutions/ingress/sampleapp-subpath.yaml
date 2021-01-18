@@ -30,5 +30,4 @@ spec:
         - name: PROPERTY
           value: everyone via Ingress from a subpath
         image: novatec/technologyconsulting-hello-container:v0.1
-        imagePullPolicy: Always
       restartPolicy: Always
