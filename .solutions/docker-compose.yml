@@ -12,13 +12,13 @@ services:
       - POSTGRES_DB=mydb
 
   todobackend:
-    image: novatec/technologyconsulting-containerexcerciseapp-todobackend:v0.1
+    image: novatec/technologyconsulting-containerexerciseapp-todobackend:v0.1
     ports:
       - 8080:8080
     depends_on:
       - postgresdb
 
   todoui:
-    image: novatec/technologyconsulting-containerexcerciseapp-todoui:v0.1
+    image: novatec/technologyconsulting-containerexerciseapp-todoui:v0.1
     ports:
       - 8090:8090

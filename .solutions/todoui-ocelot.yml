@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: todoui
-        image: novatec/technologyconsulting-containerexcerciseapp-todoui:v0.3-ocelot
+        image: novatec/technologyconsulting-containerexerciseapp-todoui:v0.3-ocelot
         env:
         - name: INSPECTIT_METRICS_JMX_ENABLED
           value: 'true'
