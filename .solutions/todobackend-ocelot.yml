@@ -43,7 +43,7 @@ spec:
           value: 'http://jaeger.monitoring:14268/api/traces'
         - name: INSPECTIT_SERVICE_NAME
           value: 'todobackend'
-        image: novatec/technologyconsulting-containerexcerciseapp-todobackend:v0.2-ocelot
+        image: novatec/technologyconsulting-containerexerciseapp-todobackend:v0.2-ocelot
       restartPolicy: Always
 ---
 apiVersion: v1

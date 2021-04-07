@@ -1,5 +1,5 @@
 image:
-  repository: novatec/technologyconsulting-containerexcerciseapp-todobackend
+  repository: novatec/technologyconsulting-containerexerciseapp-todobackend
   tag: v0.1
   
 port: 8080
