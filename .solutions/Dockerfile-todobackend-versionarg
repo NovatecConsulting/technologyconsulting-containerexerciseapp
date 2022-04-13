@@ -1,0 +1,6 @@
+FROM openjdk:8-alpine
+RUN mkdir -p /opt/todobackend
+ARG buildVersion
+WORKDIR /opt/todobackend
+COPY todobackend/target/todobackend-${buildVersion}-SNAPSHOT.jar /opt/todobackend/todobackend.jar
+CMD ["java", "-jar", "todobackend.jar"]
