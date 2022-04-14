@@ -2,5 +2,5 @@ FROM openjdk:8-alpine
 RUN mkdir -p /opt/todoui
 ARG buildVersion
 WORKDIR /opt/todoui
-COPY todoui/target/todoui-${buildVersion}-SNAPSHOT.jar /opt/todoui/todoui.jar
+COPY todoui/target/todoui-${buildVersion}.jar /opt/todoui/todoui.jar
 CMD ["java", "-jar", "todoui.jar"]
