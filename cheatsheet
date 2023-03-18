@@ -1,2 +1,0 @@
-mvn compile com.google.cloud.tools:jib-maven-plugin:3.3.1:build -Dimage=maeddes/todoui:v23
-mvn compile com.google.cloud.tools:jib-maven-plugin:3.3.1:build -Dimage=maeddes/todobackend:v23

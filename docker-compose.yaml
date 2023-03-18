@@ -1,40 +1,24 @@
 version: '3.1'
 
-services:
+------:
 
   postgresdb:
-    image: postgres
+    image: ------
     ports:
-      - 5432:5432
+      - ------:------
     environment:
       - POSTGRES_PASSWORD=password
       - POSTGRES_USER=matthias
-      - POSTGRES_DB=mydb
+      - POSTGRES_DB=------
 
   todobackend:
-    image: maeddes/todobackend:v23
+    image: ------
     ports:
       - 8080:8080
     depends_on:
-      - postgresdb
+      - ------
 
-  todoui:
-    image: maeddes/todoui:v23
+  ------:
+    image: <QUAYusername>/todoui:v1
     ports:
-      - 8090:8090
-
-  collector:
-    image: otel/opentelemetry-collector:0.72.0
-    command: [ "--config=/etc/otel-collector-config.yaml" ]
-    volumes:
-      - ./otel-config.yaml:/etc/otel-collector-config.yaml
-    ports:
-      - "4317:4317"
-    depends_on:
-      - jaeger-service
-
-  jaeger-service:
-    image: jaegertracing/all-in-one:latest
-    ports:
-      - "16686:16686"
-      - "14250"
+      - ------:------
