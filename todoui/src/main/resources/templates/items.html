@@ -9,7 +9,7 @@
 
 <div class="w3-row-padding w3-section" style="margin: 0px auto; width: 800px;" >
 
-    <header class="w3-container w3-teal">
+    <header class="w3-container w3-indigo">
         <h1>Schönste aller ToDo Listen</h1>
     </header>
 
@@ -17,7 +17,7 @@
 
     <div>
         <table class="w3-table-all w3-hoverable">
-            <tr class="w3-teal">
+            <tr class="w3-indigo">
                 <th width="600px">Item</th>
                 <th>Action</th>
             </tr>
@@ -47,16 +47,16 @@
 
     <div th:unless="${#lists.isEmpty(items)}">
         <table class="w3-table-all w3-hoverable">
-            <tr class="w3-teal">
+            <tr class="w3-indigo">
                 <th width="600px">Item</th>
                 <th>Action</th>
             </tr>
-<!--
+
             <tr>
                 <td>You have <span th:text="${#lists.size(items)}" /> ToDo(s) :-)</td>
                 <td>None</td>
             </tr>
--->
+
             <tr th:each="item : ${items}">
                 <td th:text="${item}"/>
                 <td>
@@ -70,7 +70,7 @@
 
     <div th:if="${#lists.isEmpty(items)}">
         <table class="w3-table-all w3-hoverable">
-            <tr class="w3-teal">
+            <tr class="w3-indigo">
                 <th width="600px">Item</th>
                 <th>Action</th>
             </tr>
