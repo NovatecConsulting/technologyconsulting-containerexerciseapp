@@ -48,7 +48,7 @@ public class TodobackendApplication {
 	@GetMapping("/fail")
 	String fail() {
 
-		System.exit(1);
+		//System.exit(1);
 		return "fixed!";
 	}
 

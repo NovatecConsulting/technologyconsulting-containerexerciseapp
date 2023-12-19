@@ -1,5 +1,5 @@
 FROM eclipse-temurin:17-alpine
 RUN mkdir -p /opt/todobackend
 WORKDIR /opt/todobackend
-COPY todobackend/target/todobackend-0.0.1-SNAPSHOT.jar /opt/todobackend
-CMD ["java", "-jar", "todobackend-0.0.1-SNAPSHOT.jar"]
+COPY todobackend/target/todobackend-0.0.2-SNAPSHOT.jar /opt/todobackend
+CMD ["java", "-jar", "todobackend-0.0.2-SNAPSHOT.jar"]
