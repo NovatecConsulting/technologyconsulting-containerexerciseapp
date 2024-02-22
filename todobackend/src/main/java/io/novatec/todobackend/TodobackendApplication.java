@@ -7,8 +7,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import java.util.ArrayList;
 import java.util.List;
 
