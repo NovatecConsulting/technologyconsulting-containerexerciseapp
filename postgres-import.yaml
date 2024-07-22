@@ -3,7 +3,7 @@ kind: Job
 metadata:
   name: postgresdb-import
 spec:
-  activeDeadlineSeconds: 30
+  activeDeadlineSeconds: 180
   ttlSecondsAfterFinished: 3600
   template:
     spec:
