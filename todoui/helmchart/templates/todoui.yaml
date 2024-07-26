@@ -10,12 +10,15 @@ spec:
   template:
     metadata:
       name: helm-{{ .Chart.Name }}
+      annotations:
+        rollme: {{ randAlphaNum 5 | quote }}
       labels:
         app: helm-{{ .Chart.Name }}
     spec:
       containers:
       - name: helm-{{ .Chart.Name }}
         image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+        imagePullPolicy: always
         env:
         - name: BACKEND_HOST
           value: {{ .Values.backendHost }}

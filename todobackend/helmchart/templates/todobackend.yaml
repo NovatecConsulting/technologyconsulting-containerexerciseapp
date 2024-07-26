@@ -10,15 +10,18 @@ spec:
   template:
     metadata:
       name: helm-{{ .Chart.Name }}
+      annotations:
+        rollme: {{ randAlphaNum 5 | quote }}
       labels:
         app: helm-{{ .Chart.Name }}
     spec:
       containers:
-      - image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
-        name: helm-{{ .Chart.Name }}
+      - name: helm-{{ .Chart.Name }}
+        image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+        imagePullPolicy: always
         env:
         - name: SPRING_PROFILES_ACTIVE
           value: {{ .Values.springProfiles }}
         - name: POSTGRES_HOST
-          value: postgres
+          value: postgresdb
       restartPolicy: Always
