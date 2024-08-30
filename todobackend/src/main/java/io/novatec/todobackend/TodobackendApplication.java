@@ -38,6 +38,11 @@ public class TodobackendApplication {
 
 	}
 
+	@GetMapping("favicon.ico")
+	@ResponseBody
+	void returnNoFavicon() {
+	}
+
 	@GetMapping("/hello")
 	String hello() {
 

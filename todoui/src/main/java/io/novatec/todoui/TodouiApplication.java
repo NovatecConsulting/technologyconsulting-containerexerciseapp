@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 
 import jakarta.annotation.PostConstruct;
@@ -40,6 +41,11 @@ public class TodouiApplication {
 		if(response != null) model.addAttribute("items", response.getBody());
 		return "items";
 
+	}
+
+	@GetMapping("favicon.ico")
+	@ResponseBody
+	void returnNoFavicon() {
 	}
 
 	@GetMapping("/stress")
