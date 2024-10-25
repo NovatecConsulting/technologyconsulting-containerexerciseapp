@@ -18,7 +18,7 @@ spec:
       containers:
       - name: helm-{{ .Chart.Name }}
         image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
-        imagePullPolicy: always
+        imagePullPolicy: Always
         env:
         - name: SPRING_PROFILES_ACTIVE
           value: {{ .Values.springProfiles }}
