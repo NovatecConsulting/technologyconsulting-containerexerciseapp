@@ -14,9 +14,9 @@ spec:
       runAsUser: 999
     args:
     - pg_resetwal
-    - /var/lib/postgresql/data
+    - /var/lib/postgresql
     volumeMounts:
       - name: db-data
-        mountPath: /var/lib/postgresql/data
+        mountPath: /var/lib/postgresql
         subPath: postgresdb
   restartPolicy: Never

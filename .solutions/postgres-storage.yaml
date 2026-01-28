@@ -40,7 +40,7 @@ spec:
                 key: postgres.db.name
           volumeMounts:
             - name: db-data
-              mountPath: /var/lib/postgresql/data
+              mountPath: /var/lib/postgresql
               subPath: postgresdb
         - image: postgres
           name: pg-dump
